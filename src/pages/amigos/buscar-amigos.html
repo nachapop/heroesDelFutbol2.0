@@ -1,0 +1,35 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Buscar Amigo</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-item>
+    <ion-label floating>Buscar Amigo</ion-label>
+    <ion-input name="textItem" [(ngModel)]="textItem" type="text" (keyup)="buscarAmigo(textItem)"></ion-input>
+  </ion-item>
+
+  <ion-list>
+    <ion-item *ngFor="let amigo of amigos|keys" (click)="opcionesAmigo(amigos[amigo], amigo)">
+      <p>{{i}}</p>
+      <ion-list>
+        <ion-item>
+          <ion-avatar item-start>
+            <img [src]="amigos[amigo]['user']['imagen']" alt="">
+          </ion-avatar>
+          <h2>{{i}} {{amigos[amigo]['user']['nuevoNombre']}}</h2>
+
+          <p>Ugh. As if.</p>
+        </ion-item>
+      </ion-list>
+      <!-- <ion-avatar item-left>
+        <img [src]="amigos[k].profile_picture">
+      </ion-avatar>
+      <h2>{{amigos[k].username}}</h2> -->
+    </ion-item>
+  </ion-list>
+</ion-content>

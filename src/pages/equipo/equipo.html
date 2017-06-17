@@ -1,0 +1,19 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{nombre}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-row>
+    <ion-col class="card-background-page" col-4 *ngFor="let heroe of heroes">
+      <ion-card>
+        <div class="card-title"> {{heroe.nombre}}</div>
+        <img [src]="heroe.img|tienecromo:heroe.id:'equipo'" alt="">
+
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>

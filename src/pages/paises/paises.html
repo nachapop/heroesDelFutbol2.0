@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle icon-only>
+      <ion-icon name='menu'></ion-icon>
+    </button>
+    <ion-title>Paises</ion-title>
+    <h3 *ngIf="horas >0 || minutos>0|| segundos>0">{{horas}}:{{minutosString}}</h3>
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col (click)="abrirEquipo(pais.nombre)" class="card-background-page" col-6 *ngFor="let pais of paises; let i = index">
+      <ion-card>
+        <div class="card-title">{{pais.nombre}}</div>
+        <img [src]="pais.img" alt="">
+        <p>{{numeroDeCromosPais[i]}} de 11</p>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>`
