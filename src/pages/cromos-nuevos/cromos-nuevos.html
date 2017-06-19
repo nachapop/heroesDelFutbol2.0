@@ -1,15 +1,6 @@
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>cromos_nuevos</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
-<ion-content padding>
+<ion-content>
   <ion-slides>
-    <ion-slide *ngFor="let heroe of this.heroesNuevos">
+    <ion-slide *ngFor="let heroe of heroesNuevos">
 
       <img [src]="heroe.imgbody" [alt]="heroe.nombre">
     </ion-slide>

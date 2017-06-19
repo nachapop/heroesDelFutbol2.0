@@ -205,9 +205,11 @@ export class LoginPage {
     var attribute = {}
     for (let i = 0; i < this.numeroDecromoEntregar(); i++) {
       let resultado = this.randomEntre(0, 141)
-      attribute[resultado] = this._loginService.cardsArray[resultado] + 1;
+      this._loginService.cardsArray[resultado] = this._loginService.cardsArray[resultado] + 1
+      console.log(this._loginService.cardsArray[resultado]);
+      attribute[resultado] = this._loginService.cardsArray[resultado];
+      this._loginService.newCardsArray.push(resultado)
     }
-    this._loginService.newCardsArray = attribute;
     this._loginService.updateCardsData(this._loginService.usuario.id, attribute)
       .subscribe(
       (data) => {

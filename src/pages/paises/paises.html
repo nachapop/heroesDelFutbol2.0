@@ -1,11 +1,13 @@
 <ion-header>
   <ion-navbar>
-    <button ion-button menuToggle icon-only>
+    <button ion-button menuToggle>
       <ion-icon name='menu'></ion-icon>
     </button>
     <ion-title>Paises</ion-title>
-    <h3 *ngIf="horas >0 || minutos>0|| segundos>0">{{horas}}:{{minutosString}}</h3>
-
+    <h3 *ngIf="_loginService.newCardsArray.length == 0">{{horas}}:{{minutosString}}</h3>
+    <button ion-button *ngIf="_loginService.newCardsArray.length !== 0" icon-only (click)="abrirCromosNuevos()">
+      <ion-icon name="ios-albums-outline"> </ion-icon>
+    </button>
   </ion-navbar>
 </ion-header>
 

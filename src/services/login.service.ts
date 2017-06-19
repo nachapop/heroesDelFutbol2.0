@@ -17,7 +17,7 @@ export class LoginService {
   urlFirebase: string = "https://heroesdelfutbol-dc20e.firebaseio.com/";
   user: Observable<firebase.User>;
   cardsArray: number[] = [];
-  newCardsArray: any = {};
+  newCardsArray: number[] = [];
   usuario: UsuarioInterface;
   dataUser: any;
   token: string;
@@ -50,9 +50,9 @@ export class LoginService {
   /*  login() {
       return this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
     }*/
-    getActiveUser() {
-      return firebase.auth().currentUser;
-    }
+  getActiveUser() {
+    return firebase.auth().currentUser;
+  }
   signInWithFacebook() {
     if (this.platform.is('cordova')) {
       return this.fb.login(['email', 'public_profile']).then(res => {
@@ -72,7 +72,7 @@ export class LoginService {
 
   writeUserData(usuario: UsuarioInterface) {
 
-    return this.http.put(this.urlFirebase + usuario.id + '/user/' + '.json?auth=' + this.token, usuario)
+    return this.http.put(this.urlFirebase + '/user/' + usuario.id + '.json?auth=' + this.token, usuario)
       .map((response: Response) => {
         console.log(response);
         return response.json()
@@ -80,7 +80,7 @@ export class LoginService {
   }
 
   getUserdata(userId: string) {
-    return this.http.get(this.urlFirebase + userId + '/user/' + '.json?auth=' + this.token)
+    return this.http.get(this.urlFirebase + '/user/' + userId + '.json?auth=' + this.token)
       .map((response: Response) => {
         return response.json();
 
@@ -92,21 +92,21 @@ export class LoginService {
       this.cardsArray.push(0);
     }
     console.log(this.cardsArray);
-    return this.http.put(this.urlFirebase + userId + '/cards/' + '.json?auth=' + this.token, this.cardsArray)
+    return this.http.put(this.urlFirebase + '/cards/' + userId + '.json?auth=' + this.token, this.cardsArray)
       .map((response: Response) => {
         return response.json()
       })
   }
 
   getCardsData(userId: string) {
-    return this.http.get(this.urlFirebase + userId + '/cards/' + '.json?auth=' + this.token)
+    return this.http.get(this.urlFirebase + '/cards/' + userId + '.json?auth=' + this.token)
       .map((response: Response) => {
         return response.json();
       })
   }
 
   updateCardsData(userId: string, attributes: any) {
-    return this.http.patch(this.urlFirebase + userId + '/cards' + '.json?auth=' + this.token, attributes)
+    return this.http.patch(this.urlFirebase + '/cards/' + userId + '.json?auth=' + this.token, attributes)
       .map((response: Response) => {
         return response.json();
       })
@@ -115,7 +115,7 @@ export class LoginService {
 
 
   setTimePrimeraConexion(userId: string) {
-    return this.http.patch(this.urlFirebase + userId + '/user/' + '.json?auth=' + this.token,
+    return this.http.patch(this.urlFirebase + '/user/' + userId + '.json?auth=' + this.token,
       {
         primeraConexion: firebase.database.ServerValue.TIMESTAMP,
         ultimaConexion: firebase.database.ServerValue.TIMESTAMP
@@ -126,7 +126,7 @@ export class LoginService {
   }
 
   setTimeUltimaConexion(userId: string) {
-    return this.http.patch(this.urlFirebase + userId + '/user/' + '.json?auth=' + this.token, {
+    return this.http.patch(this.urlFirebase + '/user/' + userId + '.json?auth=' + this.token, {
       ultimaConexion: firebase.database.ServerValue.TIMESTAMP
     })
       .map((response: Response) => {
@@ -134,7 +134,7 @@ export class LoginService {
       })
   }
   setTimeProximaEntrega(userId: string, time: number) {
-    return this.http.patch(this.urlFirebase + userId + '/user/' + '.json?auth=' + this.token,
+    return this.http.patch(this.urlFirebase + '/user/' + userId + '.json?auth=' + this.token,
       {
         ultimaEntrega: firebase.database.ServerValue.TIMESTAMP,
         proximaEntrega: time + this.INTERVALODETIEMPO

@@ -22,8 +22,12 @@ export class AmigosService {
     return firebase.auth().currentUser;
   }
   burcarUsuario(nombre: string) {
-    return this.http.get(this.urlFirebase + '.json?auth=' + this.token)
+    let headers = new Headers({
+      'accessToken': this.token
+    })
+    return this.http.get(this.urlFirebase + 'users/' + '.json?' + '&startAt=' + nombre + 'orderByChild=nombre' + '&once=value', headers)
       .map((response) => {
+        console.log(response.json())
         return response.json();
       });
     // return Observable.from(firebase.database().ref('/users/').orderByChild('username').

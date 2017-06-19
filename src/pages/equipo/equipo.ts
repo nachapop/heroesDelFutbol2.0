@@ -11,14 +11,13 @@ export class EquipoPage {
   pais: string;
   heroes: Heroe[] = [];
   cardsArray: number[];
-  jugadoresAfrica: number;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private _heroesService: HeroesService,
     private _loginService: LoginService
   ) {
     this.cardsArray = this._loginService.cardsArray;
-  
+
   }
 
   ngOnInit() {

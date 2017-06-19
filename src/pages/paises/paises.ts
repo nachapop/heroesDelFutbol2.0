@@ -14,8 +14,7 @@ export class PaisesPage {
   paises: Pais[] = [];
 
   usuario: UsuarioInterface;
-  cardsArray: number[];
-  newCardsArray: any;
+
   horas: number;
   minutos: number;
   minutosString: string;
@@ -29,15 +28,14 @@ export class PaisesPage {
     public _heroesService: HeroesService,
     public _loginService: LoginService) {
     this.usuario = this._loginService.usuario;
-    this.cardsArray = this._loginService.cardsArray;
 
-    this.newCardsArray = this._loginService.newCardsArray;
+
     this.paises = this._paisesService.getPaises();
     this.proximaEntrega();
     this.heroes = this._heroesService.getHeroes();
 
     for (let heroe in this.heroes) {
-      this.heroes[heroe].numerodecromos = this.cardsArray[heroe];
+      this.heroes[heroe].numerodecromos = this._loginService.cardsArray[heroe];
       if (this.heroes[heroe].numerodecromos > 0) {
         for (let pais in this.paises) {
           if (this.heroes[heroe].pais === this.paises[pais].nombre) {
@@ -46,10 +44,10 @@ export class PaisesPage {
         }
       }
     }
+    console.log(this._loginService.newCardsArray.length == 0);
     console.log(this.numeroDeCromosPais);
-    console.log(this.newCardsArray);
-    if (this.newCardsArray.length > 0)
-      this.navCtrl.push(CromosNuevosPage);
+    console.log(this._loginService.newCardsArray);
+
   }
 
   proximaEntrega() {
@@ -81,5 +79,8 @@ export class PaisesPage {
     console.log(nombre);
     this.navCtrl.push(EquipoPage, { pais: nombre })
     //    [navParams]="{pais : pais}"
+  }
+  abrirCromosNuevos() {
+    this.navCtrl.push(CromosNuevosPage);
   }
 }
