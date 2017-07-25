@@ -25,6 +25,7 @@ import {LoginService} from '../services/login.service';
 import {PaisesService} from '../services/paises.service';
 import {HeroesService} from '../services/heroes.service';
 import {AmigosService} from '../services/amigos.service';
+import {AjustesService} from '../services/ajustes.service';
 
 //Pipes
 import {TieneCromoPipe} from '../pipes/tiene-cromo.pipe';
@@ -32,10 +33,11 @@ import {TieneCromoPipe} from '../pipes/tiene-cromo.pipe';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-
+import firebase from 'firebase';
 
 //plug-ins
 import { Facebook } from '@ionic-native/facebook';
+import { GooglePlus } from '@ionic-native/google-plus';
 import { KeysPipe } from '../pipes/keys/keys';
 export const firebaseConfig = {
   apiKey: "AIzaSyDiRtjf5YU9Qee6_7_XZnZsEPFq3dnJYZs",
@@ -45,6 +47,7 @@ export const firebaseConfig = {
   storageBucket: "heroesdelfutbol-dc20e.appspot.com",
   messagingSenderId: "670769318517"
 };
+firebase.initializeApp(firebaseConfig);
 @NgModule({
   declarations: [
     TieneCromoPipe,
@@ -85,6 +88,8 @@ export const firebaseConfig = {
     CromosNuevosPage
   ],
   providers: [
+    GooglePlus,
+    AjustesService,
     AmigosService,
     Facebook,
     HeroesService,

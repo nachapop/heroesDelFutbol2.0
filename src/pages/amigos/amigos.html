@@ -15,4 +15,35 @@
 
 <ion-content padding>
   <button type="button" ion-button block (click)="navegarPageAmigos()">Busca Amigos</button>
+
+  <ion-list>
+    <ion-item *ngFor="let amigo of _as.amigosComodin">
+      <ion-avatar item-start>
+        <img [src]="amigo.amigoImagen">
+      </ion-avatar>
+      <h2>{{amigo.amigoNombre}}</h2>
+
+
+
+
+      <!-- <ion-avatar item-left>
+        <img [src]="amigos[k].profile_picture">
+      </ion-avatar>
+      <h2>{{amigos[k].username}}</h2> -->
+    </ion-item>
+    <ion-item *ngFor="let amigo of amigosEnvio">
+      <ion-avatar item-start>
+        <img [src]="amigo.imagen">
+      </ion-avatar>
+      <h2>{{amigo.nuevoNombre}}</h2>
+
+
+
+
+      <!-- <ion-avatar item-left>
+        <img [src]="amigos[k].profile_picture">
+      </ion-avatar>
+      <h2>{{amigos[k].username}}</h2> -->
+    </ion-item>
+  </ion-list>
 </ion-content>

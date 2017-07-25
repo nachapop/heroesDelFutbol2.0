@@ -44,10 +44,6 @@ export class PaisesPage {
         }
       }
     }
-    console.log(this._loginService.newCardsArray.length == 0);
-    console.log(this.numeroDeCromosPais);
-    console.log(this._loginService.newCardsArray);
-
   }
 
   proximaEntrega() {

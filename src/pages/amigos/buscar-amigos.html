@@ -14,18 +14,14 @@
   </ion-item>
 
   <ion-list>
-    <ion-item *ngFor="let amigo of amigos|keys" (click)="opcionesAmigo(amigos[amigo], amigo)">
-      <p>{{i}}</p>
-      <ion-list>
-        <ion-item>
-          <ion-avatar item-start>
-            <img [src]="amigos[amigo]['user']['imagen']" alt="">
-          </ion-avatar>
-          <h2>{{i}} {{amigos[amigo]['user']['nuevoNombre']}}</h2>
+    <ion-item *ngFor="let amigo of amigos" (click)="opcionesAmigo(amigo)">
 
-          <p>Ugh. As if.</p>
-        </ion-item>
-      </ion-list>
+      <ion-avatar item-start>
+        <img [src]="amigo.imagen">
+      </ion-avatar>
+      <h2>{{amigo.nuevoNombre}}</h2>
+
+
       <!-- <ion-avatar item-left>
         <img [src]="amigos[k].profile_picture">
       </ion-avatar>

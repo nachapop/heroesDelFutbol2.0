@@ -6,6 +6,7 @@ import {TabsPage} from '../tabs/tabs';
 import {AngularFireModule} from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
+
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html'
@@ -23,65 +24,29 @@ export class LoginPage {
   }
 
   loguearse() {
-
     this.loader = this.loadingCtrl.create({
       content: "Please wait..."
     });
-
     this.loader.present();
-    this._loginService.signInWithFacebook()
+    this._loginService.signInWithGoogle()
       .then(data => {
-        console.log(data)
         if (this.platform.is('cordova')) {
           var user = this._loginService.dataUser;
-
         } else {
           var user = data.user;
-
         }
         this._loginService.usuario.id = user.uid;
         this._loginService.usuario.correo = user.email;
         this._loginService.usuario.nombre = user.displayName;
         this._loginService.usuario.imagen = user.photoURL;
         this._loginService.usuario.nuevoNombre = user.displayName;
+
+        this._loginService.usuario.nombreLower = this._loginService.getCleanedString(user.displayName);
         this.getToken();
       });
-    // this.afAuth.auth
-    //   .signInWithPopup(new firebase.auth.FacebookAuthProvider())
-    //   .then(data => {
-    //     console.log(data)
-    //     var user = data.user;
-    //     this._loginService.usuario.id = user.uid;
-    //     this._loginService.usuario.correo = user.email;
-    //     this._loginService.usuario.nombre = user.displayName;
-    //     this._loginService.usuario.imagen = user.photoURL;
-    //     this._loginService.usuario.nuevoNombre = user.displayName;
-    //
-    //     this.getToken();
-    //   });
-
-
-    //  this.getToken()
   }
-  // this._loginService.login()
-  //
-  //   .then(data => {
-  //     var user = data.user;
-  //     this._loginService.usuario.id = user.uid;
-  //     this._loginService.usuario.correo = data.user.email;
-  //     this._loginService.usuario.nombre = data.user.displayName;
-  //     this._loginService.usuario.imagen = data.user.photoURL;
-  //     this._loginService.usuario.nuevoNombre = data.user.displayName;
-  //
-  //     this.getToken()
-  //   })
-  //   .catch(error => {
-  //     console.log(error);
-  //     this.loader.dismiss();
-  //   });
-
   getToken() {
-    this._loginService.getActiveUser().getIdToken()
+    this._loginService.getActiveUser().getToken()
       .then(
       (token: string) => {
         this._loginService.token = token;
@@ -92,7 +57,6 @@ export class LoginPage {
         console.log(error);
         this.loader.dismiss();
       });
-
   }
 
   obtenerUsuario() {
@@ -111,6 +75,7 @@ export class LoginPage {
           this._loginService.usuario.primeraConexion = data.primeraConexion;
           this._loginService.usuario.ultimaEntrega = data.ultimaEntrega;
           this._loginService.usuario.proximaEntrega = data.proximaEntrega;
+          this._loginService.usuario.nombreLower = this._loginService.getCleanedString(data.nuevoNombre);
           /*  this.usuario.primeraConexion = this.reformatearFecha(data.primeraConexion);
             this.usuario.ultimaConexion = this.reformatearFecha(data.ultimaConexion);*/
           //  console.log(this.usuario.ultimaConexion.getHours());

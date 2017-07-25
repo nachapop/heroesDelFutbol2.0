@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, ActionSheetController } from 'ionic-angular';
 import {AmigosService} from '../../services/amigos.service';
 import {LoginService, UsuarioInterface} from '../../services/login.service';
+
 @Component({
   selector: 'page-buscar-amigos',
   templateUrl: 'buscar-amigos.html',
@@ -9,42 +10,49 @@ import {LoginService, UsuarioInterface} from '../../services/login.service';
 export class BuscarAmigosPage {
   amigos: UsuarioInterface[] = [];
   usuario: UsuarioInterface;
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-    private actionSheetCtrl: ActionSheetController, private _as: AmigosService,
+  arrayAmigos: any = []
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    private actionSheetCtrl: ActionSheetController,
+    private _as: AmigosService,
     private _ls: LoginService
   ) {
     this.usuario = this._ls.usuario;
     console.log(this.usuario);
   }
+  // transform(value: any): any {
+  //   let keys = [];
+  //   for (let key in value) {
+  //     keys.push(key);
+  //   }
+  //   return keys;
+  // }
 
   buscarAmigo(nombre: string) {
-    console.log("buscando " + nombre);
+    this.amigos = [];
     if (nombre != undefined && nombre != null && nombre.length > 0) {
-      this._as.burcarUsuario(nombre).subscribe(data => {
-        this.amigos = data;
-      });
+      console.log("buscando " + this._ls.getCleanedString(nombre));
+
+      this._as.burcarAmigo(this._ls.getCleanedString(nombre))
+        .subscribe(data => {
+          this.amigos = data;
+        });
     } else {
       this.amigos = [];
     }
-    for (let amigo in this.amigos) {
-      console.log(this.amigos[amigo]['user'])
-    }
-    //  console.log(this.amigos);
   }
-  opcionesAmigo(amigo: any, k: string) {
-    //this.friendId = k;
-    console.log(amigo)
-    this.presentActionSheet(amigo, k);
+  opcionesAmigo(amigo: any, ) {
+    this.presentActionSheet(amigo);
   }
-  presentActionSheet(amigo: any, keyFriend: string) {
+  presentActionSheet(amigo: any) {
     let actionSheet = this.actionSheetCtrl.create({
-      title: `Acciones con ${amigo.username} `,
+      title: `Acciones con ${amigo.nuevoNombre}`,
       buttons: [
         {
           text: 'Solicitar',
           handler: () => {
             //  this.nuevoAmigo()
-
+            this._as.solicitarAmistad(amigo)
             console.log('Archive clicked');
           }
         }, {
@@ -58,4 +66,5 @@ export class BuscarAmigosPage {
     });
     actionSheet.present();
   }
+
 }
